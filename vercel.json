@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/calendar.ics", "destination": "/api/ics" },
+    { "source": "/e/:id.ics", "destination": "/api/ics?id=:id" },
+    { "source": "/e/:id", "destination": "/api/event?id=:id" }
+  ],
+  "headers": [
+    { "source": "/calendar.ics", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
+  ]
+}

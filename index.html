@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bCalX · What’s on, live</title>
+<meta name="description" content="bCalX is the calendar of live audio Spaces on bChatX. See what’s on, add any Space to your calendar, subscribe to them all, and open the Space when it starts.">
+<link rel="canonical" href="https://bcalx.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bcalx.com/">
+<meta property="og:site_name" content="bCalX">
+<meta property="og:title" content="bCalX · What’s on, live">
+<meta property="og:description" content="The calendar of live audio Spaces. Add one to your calendar in a tap, or subscribe to them all.">
+<meta property="og:image" content="https://bcalx.com/api/og">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="bCalX: What’s on, live. The calendar of live audio Spaces.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="bCalX · What’s on, live">
+<meta name="twitter:description" content="The calendar of live audio Spaces. Add one to your calendar in a tap, or subscribe to them all.">
+<meta name="twitter:image" content="https://bcalx.com/api/og">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="text/calendar" title="bCalX Spaces" href="/calendar.ics">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="wrap nav">
+  <a class="brand" href="/" aria-label="bCalX home"><img src="/logo.svg" width="22" height="30" alt="">bCal<span class="gold">X</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#whats-on">What’s on</a>
+    <a class="hide-s" href="#host">Host a Space</a>
+    <a class="btn btn-ghost" href="/calendar.ics">Subscribe</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">bCalX · Spaces calendar</p>
+      <h1>What’s on,<br><span>live.</span></h1>
+      <p class="lede">Live audio Spaces on bChatX: talks, Q&amp;As, listening parties. See what’s coming up, add it to your calendar, and tap in when it starts. Listening is free in your browser.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#whats-on">See what’s on</a>
+        <a class="btn btn-ghost" href="/calendar.ics">Subscribe to all</a>
+      </div>
+      <p class="hint">Works with Apple Calendar, Google Calendar and Outlook.</p>
+    </div>
+    <div class="month" aria-hidden="true">
+      <div class="month-h"><b id="m-name">&nbsp;</b><span>Your time zone</span></div>
+      <div class="days" id="m-days"></div>
+      <p class="month-f" id="m-foot">&nbsp;</p>
+    </div>
+  </div>
+
+  <section id="whats-on">
+    <div class="wrap">
+      <p class="kicker">What’s on</p>
+      <h2>Coming up on bChatX</h2>
+      <p class="sub">Every scheduled Space, soonest first, in your own time zone.</p>
+      <div id="events" aria-live="polite"><p class="loading">Loading the calendar…</p></div>
+      <div class="sub-box">
+        <code>https://bcalx.com/calendar.ics</code>
+        <a class="btn btn-ghost sm" href="webcal://bcalx.com/calendar.ics">Subscribe</a>
+        <button class="btn btn-ghost sm" type="button" id="copy">Copy link</button>
+      </div>
+      <p class="hint">Subscribe once and new Spaces appear in your calendar as they’re scheduled.</p>
+    </div>
+  </section>
+
+  <section id="host">
+    <div class="wrap">
+      <p class="kicker">Host a Space</p>
+      <h2>Put your Space on the calendar</h2>
+      <p class="sub">Spaces are scheduled inside a room on bChatX, signed in with bWalletX. Once a Space is confirmed, it shows up here with its own page and share card.</p>
+      <ol class="steps">
+        <li><b>Open your room on bChatX</b>Sign in with bWalletX and go to the room you want to talk in.</li>
+        <li><b>Room owners: Schedule a Space</b>Owners and moderators pick a time, a title and guests. It’s free and goes straight on the calendar.</li>
+        <li><b>Members: Book the Space</b>Ask the room for a slot. The price is the room’s own rate by the minute (£1 an hour unless the room sets another, and it can be free).</li>
+        <li><b>Approved, then confirmed</b>When the room approves, pay a 10% deposit within 24 hours to confirm. The rest is paid before you go live. Both go to the room owner.</li>
+      </ol>
+      <div class="ctas"><a class="btn btn-gold" href="https://www.bchatx.com">Open bChatX</a><a class="btn btn-ghost" href="https://bwalletx.com">Get bWalletX</a></div>
+    </div>
+  </section>
+
+  <section id="status">
+    <div class="wrap">
+      <p class="kicker">Status</p>
+      <h2>What works today</h2>
+      <ul class="status">
+        <li><span><b>What’s on: scheduled Spaces from bChatX</b><small>Fills in as rooms confirm Spaces.</small></span><span class="tag live">Live</span></li>
+        <li><span><b>Add to calendar (.ics) for each Space</b></span><span class="tag live">Live</span></li>
+        <li><span><b>Subscribe to every Space (calendar feed)</b></span><span class="tag live">Live</span></li>
+        <li><span><b>A page and share image for each Space</b></span><span class="tag live">Live</span></li>
+        <li><span><b>Schedule or book a Space in a bChatX room</b></span><span class="tag live">Live</span></li>
+        <li><span><b>Reminders for room members on bChatX</b></span><span class="tag live">Live</span></li>
+        <li><span><b>Remind me straight from bCalX</b><small>Without opening the room first.</small></span><span class="tag soon">Coming</span></li>
+        <li><span><b>bCalendar in bWalletX</b><small>Your own calendar in the wallet: Spaces you follow, plus your own events.</small></span><span class="tag soon">Coming</span></li>
+        <li><span><b>Per-room calendar feeds</b></span><span class="tag soon">Coming</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <span>bCalX · the calendar of live Spaces on <a href="https://www.bchatx.com">bChatX</a></span>
+  <span><a href="https://bwalletx.com">bWalletX</a> · <a href="https://bmailx.com">bMailX</a></span>
+</footer>
+
+<script>
+(function(){
+  var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  var tzs=function(d){try{return d.toLocaleTimeString(undefined,{timeZoneName:'short'}).split(' ').pop()}catch(_){return ''}};
+  var t=function(d){return d.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'})};
+  var dur=function(m){return m%60===0?(m/60)+' h':m>60?Math.floor(m/60)+' h '+(m%60)+' min':m+' min'};
+
+  function month(items){
+    var now=new Date(),y=now.getFullYear(),m=now.getMonth();
+    document.getElementById('m-name').textContent=now.toLocaleDateString(undefined,{month:'long',year:'numeric'});
+    var first=(new Date(y,m,1).getDay()+6)%7,len=new Date(y,m+1,0).getDate(),has={};
+    items.forEach(function(e){var d=new Date(e.startsAt);if(d.getFullYear()===y&&d.getMonth()===m)has[d.getDate()]=1});
+    var h='';['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="wd">'+w+'</span>'});
+    for(var i=0;i<first;i++)h+='<span class="blank"></span>';
+    for(var d=1;d<=len;d++)h+='<span class="'+(d===now.getDate()?'today ':'')+(has[d]?'has':'')+'">'+d+'</span>';
+    document.getElementById('m-days').innerHTML=h;
+    var n=Object.keys(has).length;
+    document.getElementById('m-foot').textContent=n?'Gold outline: a day with a Space.':'Nothing scheduled this month yet.';
+  }
+
+  function render(items){
+    var box=document.getElementById('events');
+    month(items);
+    if(!items.length){
+      box.innerHTML='<div class="empty"><h3>Nothing scheduled yet</h3><p>When a room on bChatX confirms a Space, it appears here. Subscribe and it will land in your calendar too.</p><div class="ctas"><a class="btn btn-ghost sm" href="#host">Host a Space</a></div></div>';
+      return;
+    }
+    box.innerHTML='<ul class="list">'+items.map(function(e){
+      var d=new Date(e.startsAt),end=new Date(d.getTime()+e.durationMin*6e4),live=e.status==='live';
+      var meta=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'})+' · '+t(d)+'–'+t(end)+' '+tzs(d)+' · '+dur(e.durationMin)+' · '+esc(e.roomName)+(e.host?' · $'+esc(e.host):'');
+      return '<li class="ev-row"><div class="ev-date"><small>'+esc(d.toLocaleDateString(undefined,{month:'short'}).toUpperCase())+'</small><b>'+d.getDate()+'</b></div>'+
+        '<div class="ev-main"><h3><a href="/e/'+encodeURIComponent(e.id)+'">'+esc(e.title)+'</a> '+(live?'<span class="tag live">Live</span>':'')+'</h3><p class="ev-meta">'+meta+'</p></div>'+
+        '<div class="ev-acts">'+(live?'':'<a class="btn btn-ghost sm" href="/e/'+encodeURIComponent(e.id)+'.ics" download>Add to calendar</a><a class="btn btn-ghost sm" href="'+esc(e.roomUrl)+'">Remind me</a>')+
+        '<a class="btn btn-gold sm" href="'+esc(e.spaceUrl)+'">'+(live?'Join':'Open the Space')+'</a></div></li>';
+    }).join('')+'</ul>';
+  }
+
+  month([]);
+  fetch('/api/upcoming').then(function(r){return r.ok?r.json():{items:[]}}).then(function(j){render(j.items||[])}).catch(function(){render([])});
+
+  var c=document.getElementById('copy');
+  c.addEventListener('click',function(){
+    try{navigator.clipboard.writeText('https://bcalx.com/calendar.ics').then(function(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy link'},1600)})}catch(_){}
+  });
+})();
+</script>
+</body>
+</html>
