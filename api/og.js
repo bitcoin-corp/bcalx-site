@@ -6,7 +6,7 @@ export const config = { runtime: 'edge' };
 //   /api/og          → the bCalX home card (no events shown: none invented)
 //   /api/og?id=<id>  → one scheduled Space: title, room, time (UTC), host
 
-const h = (type, style, ...children) => ({ type, props: { style, children: children.flat().filter((c) => c !== null && c !== false && c !== undefined) } });
+const h = (type, style, ...children) => ({ type, props: { style: type === 'div' && !style.display ? { display: 'flex', ...style } : style, children: children.flat().filter((c) => c !== null && c !== false && c !== undefined) } });
 const GOLD = 'linear-gradient(180deg,#ffe58a,#ffd24d 55%,#c98f00)';
 
 async function font(weight) {
@@ -39,17 +39,17 @@ const frame = (...kids) => h('div', {
 function homeCard() {
   // A calendar page motif: one gold "LIVE" chip, no invented events.
   const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  const cell = (i) => h('div', { width: 44, height: 44, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: i === 17 ? '#000' : '#7c7a73', background: i === 17 ? GOLD : '#15161a', border: '1px solid #24262c' }, String(i + 1));
+  const cell = (i) => h('div', { width: 40, height: 40, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: i === 17 ? '#000' : '#7c7a73', background: i === 17 ? GOLD : '#15161a', border: '1px solid #24262c' }, String(i + 1));
   return frame(
     brand(),
-    h('div', { display: 'flex', flexDirection: 'column', marginTop: 70, width: 640 },
+    h('div', { display: 'flex', flexDirection: 'column', marginTop: 70, width: 600 },
       h('div', { fontSize: 104, fontWeight: 700, lineHeight: 0.95, letterSpacing: -5, display: 'flex', flexDirection: 'column' },
         h('span', {}, 'What’s on,'), h('span', { backgroundImage: GOLD, backgroundClip: 'text', color: 'transparent' }, 'live.')),
       h('div', { fontSize: 30, color: '#cfcabd', marginTop: 28, lineHeight: 1.3 }, 'The calendar of live audio Spaces. Add one to your calendar in a tap.')),
     h('div', { position: 'absolute', left: 72, bottom: 52, fontSize: 22, color: '#7c7a73', display: 'flex' }, h('span', { color: '#f4f1e8', marginRight: 8 }, 'bcalx.com'), '· Spaces on bChatX'),
     h('div', { position: 'absolute', right: 80, top: 130, width: 390, padding: 26, borderRadius: 22, background: '#0d0e11', border: '1px solid rgba(255,210,77,.28)', display: 'flex', flexDirection: 'column', transform: 'rotate(3deg)' },
       h('div', { display: 'flex', justifyContent: 'space-between', fontSize: 20, color: '#a9a69c', marginBottom: 16 }, h('span', {}, 'Calendar'), h('span', { color: '#ffd24d' }, 'Add to calendar')),
-      h('div', { display: 'flex', gap: 6, marginBottom: 8 }, ...days.map((d) => h('div', { width: 44, display: 'flex', justifyContent: 'center', fontSize: 15, color: '#7c7a73' }, d))),
+      h('div', { display: 'flex', gap: 6, marginBottom: 8 }, ...days.map((d) => h('div', { width: 40, display: 'flex', justifyContent: 'center', fontSize: 15, color: '#7c7a73' }, d))),
       h('div', { display: 'flex', flexWrap: 'wrap', gap: 6 }, ...Array.from({ length: 28 }, (_, i) => cell(i)))),
   );
 }

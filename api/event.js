@@ -15,7 +15,7 @@ const head = (title, desc, url, og) => `<!doctype html><html lang="en"><head>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css"></head><body>
-<header class="wrap nav"><a class="brand" href="/"><img src="/logo.svg" width="22" height="30" alt="">bCal<span class="gold">X</span></a>
+<header class="wrap nav"><a class="brand" href="/"><img src="/logo.svg" width="22" height="30" alt=""><span>bCal<span class="gold">X</span></span></a>
 <nav class="nav-links"><a href="/#whats-on">What’s on</a><a class="btn btn-ghost" href="/calendar.ics">Subscribe</a></nav></header>`;
 
 const foot = `<footer class="wrap foot"><span>bCalX · the calendar of live Spaces on <a href="https://www.bchatx.com">bChatX</a></span><span><a href="https://bwalletx.com">bWalletX</a> · <a href="https://bmailx.com">bMailX</a></span></footer>
