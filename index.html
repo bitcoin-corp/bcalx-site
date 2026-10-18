@@ -115,7 +115,8 @@
         <li><span><b>Reminders for room members on bChatX</b></span><span class="tag live">Live</span></li>
         <li><span><b>Remind me straight from bCalX</b><small>Without opening the room first.</small></span><span class="tag soon">Coming</span></li>
         <li><span><b>bCalendar in bWalletX</b><small>Your own calendar in the wallet: Spaces you follow, plus your own events.</small></span><span class="tag soon">Coming</span></li>
-        <li><span><b>Per-room calendar feeds</b></span><span class="tag soon">Coming</span></li>
+        <li><span><b>Per-room calendar feeds</b><small>bcalx.com/room/&lt;ticker&gt;.ics</small></span><span class="tag live">Live</span></li>
+        <li><span><b>Each Space signed on Bitcoin</b><small>The host signs a public record (open spec); event pages verify it.</small></span><span class="tag soon">Coming</span></li>
       </ul>
     </div>
   </section>
@@ -123,7 +124,7 @@
 
 <footer class="wrap foot">
   <span>bCalX · the calendar of live Spaces on <a href="https://www.bchatx.com">bChatX</a></span>
-  <span><a href="https://bwalletx.com">bWalletX home</a> · <a href="https://bwalletx.com/privacy">Privacy</a> · By The Bitcoin Corporation Ltd.</span>
+  <span><a href="https://bwalletx.com">bWalletX home</a> · <a href="https://bwalletx.com/privacy">Privacy</a> · <a href="https://bwalletx.com/terms">Terms</a> · By The Bitcoin Corporation Ltd.</span>
 </footer>
 
 <script>
@@ -157,7 +158,7 @@
       var d=new Date(e.startsAt),end=new Date(d.getTime()+e.durationMin*6e4),live=e.status==='live';
       var meta=d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'})+' · '+t(d)+'–'+t(end)+' '+tzs(d)+' · '+dur(e.durationMin)+' · '+esc(e.roomName)+(e.host?' · $'+esc(e.host):'');
       return '<li class="ev-row"><div class="ev-date"><small>'+esc(d.toLocaleDateString(undefined,{month:'short'}).toUpperCase())+'</small><b>'+d.getDate()+'</b></div>'+
-        '<div class="ev-main"><h3><a href="/e/'+encodeURIComponent(e.id)+'">'+esc(e.title)+'</a> '+(live?'<span class="tag live">Live</span>':'')+'</h3><p class="ev-meta">'+meta+'</p></div>'+
+        '<div class="ev-main"><h3><a href="/e/'+encodeURIComponent(e.id)+'">'+esc(e.title)+'</a> '+(live?'<span class="tag live">Live</span>':'')+(e.chainTxid?' <a class="chain-mini" href="https://whatsonchain.com/tx/'+e.chainTxid+'" target="_blank" rel="noopener">on chain ↗</a>':'')+'</h3><p class="ev-meta">'+meta+'</p></div>'+
         '<div class="ev-acts">'+(live?'':'<a class="btn btn-ghost sm" href="/e/'+encodeURIComponent(e.id)+'.ics" download>Add to calendar</a><a class="btn btn-ghost sm" href="'+esc(e.roomUrl)+'">Remind me</a>')+
         '<a class="btn btn-gold sm" href="'+esc(e.spaceUrl)+'">'+(live?'Join':'Open the Space')+'</a></div></li>';
     }).join('')+'</ul>';

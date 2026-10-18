@@ -1,4 +1,4 @@
-import { findEvent, esc, utcLabel, durLabel, SITE } from '../lib/events.js';
+import { findEvent, esc, utcLabel, durLabel, SITE, VERIFY, OPEN_IN_WALLET } from '../lib/events.js';
 export const config = { runtime: 'edge' };
 
 // /e/<id> → a shareable page for one scheduled Space, with its own OG image (/api/og?id=<id>).
@@ -28,6 +28,13 @@ document.querySelectorAll('time[data-start]').forEach(function(el){
   var tzs=d.toLocaleTimeString(undefined,{timeZoneName:'short'}).split(' ').pop();
   el.innerHTML='<b>'+day+'</b><span>'+t(d)+' – '+t(e)+' '+tzs+(tz?' · '+tz.replace(/_/g,' '):'')+'</span>';}catch(_){}
 });
+var ch=document.getElementById('chain');
+if(ch){var st=ch.querySelector('.chain-state');
+  fetch('${VERIFY}'+ch.dataset.txid).then(function(r){return r.json()}).then(function(v){
+    var r=v&&v.record,ok=v&&v.ok&&r&&r.id===ch.dataset.id&&r.room===ch.dataset.room.toUpperCase()&&Date.parse(r.start)===Date.parse(ch.dataset.start);
+    st.textContent=ok?('Verified: signed by '+v.signerKey.slice(0,10)+'… · '+(r.status==='cancelled'?'cancelled':'record #'+r.seq)):(v&&v.found===false?'Waiting for the network to show it.':'Could not verify this record.');
+    st.className='chain-state '+(ok?'ok':'bad');
+  }).catch(function(){st.textContent='Could not reach the verifier.'});}
 var c=document.getElementById('countdown');
 if(c){var s=Date.parse(c.dataset.start),f=function(){var ms=s-Date.now();if(ms<=0){c.textContent='Starting now';return}
 var d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60;c.textContent='Starts in '+(d?d+'d ':'')+(d||h?h+'h ':'')+m+'m'};f();setInterval(f,3e4)}
@@ -65,7 +72,9 @@ export default async function handler(req) {
   <div class="ctas">
     <a class="btn btn-gold" href="${e.spaceUrl}">${live ? 'Join the Space' : 'Open the Space'}</a>
     ${live ? '' : `<a class="btn btn-ghost" href="/e/${e.id}.ics" download>Add to calendar</a><a class="btn btn-ghost" href="${e.roomUrl}">Remind me</a>`}
+    <a class="btn btn-ghost" href="${OPEN_IN_WALLET}">Open in bWalletX</a>
   </div>
+  ${e.chainTxid ? `<p class="chain" id="chain" data-txid="${e.chainTxid}" data-id="${esc(e.id)}" data-room="${esc(e.room)}" data-start="${e.startsAt}" data-title="${esc(e.title)}"><a href="https://whatsonchain.com/tx/${e.chainTxid}" target="_blank" rel="noopener">On chain ↗</a> <span class="chain-state">checking the signed record…</span></p>` : ''}
   ${live ? '' : '<p class="hint">“Remind me” opens the room on bChatX, where members can switch on a reminder.</p>'}
   ${people ? `<h2 class="h3">On stage</h2><ul class="people">${people}</ul>` : ''}
   <p class="hint">Times show in your own time zone. The Space lives at <a href="${e.spaceUrl}">${esc(e.spaceUrl.replace('https://www.', ''))}</a>.</p>
