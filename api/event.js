@@ -1,4 +1,4 @@
-import { findEvent, esc, utcLabel, durLabel, SITE, VERIFY, OPEN_IN_WALLET } from '../lib/events.js';
+import { findEvent, esc, utcLabel, durLabel, SITE, VERIFY, OPEN_IN_WALLET, handleLabel } from '../lib/events.js';
 export const config = { runtime: 'edge' };
 
 // /e/<id> → a shareable page for one scheduled Space, with its own OG image (/api/og?id=<id>).
@@ -53,12 +53,12 @@ export default async function handler(req) {
   if (!e) return notFound(id);
   const { date, time } = utcLabel(e);
   const live = e.status === 'live';
-  const who = e.host ? `hosted by $${e.host}` : `in the ${e.roomName} room`;
+  const who = e.host ? `hosted by ${handleLabel(e.host)}` : `in the ${e.roomName} room`;
   const desc = `${live ? 'Live now' : `${date}, ${time}`} · ${durLabel(e.durationMin)} · ${who}. A live audio Space on bChatX: listen free in your browser.`;
   const url = `${SITE}/e/${e.id}`;
   const og = `${SITE}/api/og?id=${encodeURIComponent(e.id)}`;
-  const people = [e.host && `<li><span class="av">${esc(e.host[0].toUpperCase())}</span><span><b>$${esc(e.host)}</b><small>Host</small></span></li>`,
-    ...e.guests.map((g) => `<li><span class="av g">${esc(g[0].toUpperCase())}</span><span><b>$${esc(g)}</b><small>Guest</small></span></li>`)].filter(Boolean).join('');
+  const people = [e.host && `<li><span class="av">${esc(e.host[0].toUpperCase())}</span><span><b>${esc(handleLabel(e.host))}</b><small>Host</small></span></li>`,
+    ...e.guests.map((g) => `<li><span class="av g">${esc(g[0].toUpperCase())}</span><span><b>${esc(handleLabel(g))}</b><small>Guest</small></span></li>`)].filter(Boolean).join('');
   const html = head(`${e.title} · bCalX`, desc, url, og) + `
 <main class="wrap ev">
   <p class="kicker">${live ? '<span class="tag live">Live now</span>' : 'Live audio Space'}</p>

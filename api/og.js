@@ -1,5 +1,5 @@
 import { ImageResponse } from '@vercel/og';
-import { findEvent, durLabel } from '../lib/events.js';
+import { findEvent, durLabel, handleLabel } from '../lib/events.js';
 export const config = { runtime: 'edge' };
 
 // 1200×630 share cards in the house style (gold on black, Space Grotesk).
@@ -63,7 +63,7 @@ function eventCard(e) {
     h('div', { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }, brand(),
       h('div', { display: 'flex', fontSize: 20, fontWeight: 700, letterSpacing: 2, color: '#000', background: GOLD, borderRadius: 999, padding: '10px 18px' }, e.status === 'live' ? 'LIVE NOW' : 'LIVE AUDIO SPACE')),
     h('div', { display: 'flex', marginTop: 54, fontSize: size, fontWeight: 700, lineHeight: 1, letterSpacing: -size * 0.04, maxWidth: 1050, backgroundImage: GOLD, backgroundClip: 'text', color: 'transparent' }, e.title),
-    h('div', { display: 'flex', marginTop: 26, fontSize: 32, color: '#cfcabd' }, `in the ${e.roomName} room${e.host ? ` · hosted by $${e.host}` : ''}`),
+    h('div', { display: 'flex', marginTop: 26, fontSize: 32, color: '#cfcabd' }, `in the ${e.roomName} room${e.host ? ` · hosted by ${handleLabel(e.host)}` : ''}`),
     h('div', { position: 'absolute', left: 72, right: 72, bottom: 52, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' },
       h('div', { display: 'flex', alignItems: 'stretch', borderRadius: 18, border: '1px solid rgba(255,210,77,.28)', background: '#0d0e11', overflow: 'hidden' },
         h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '14px 24px', background: GOLD, color: '#000' },
