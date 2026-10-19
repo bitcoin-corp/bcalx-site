@@ -39,7 +39,7 @@ const frame = (...kids) => h('div', {
 function homeCard() {
   // A calendar page motif: one gold "LIVE" chip, no invented events.
   const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  const cell = (i) => h('div', { width: 40, height: 40, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: i === 17 ? '#000' : '#7c7a73', background: i === 17 ? GOLD : '#15161a', border: '1px solid #24262c' }, String(i + 1));
+  const cell = (i) => h('div', { width: 40, height: 40, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, color: i === 17 ? '#000' : '#7c7a73', background: i === 17 ? GOLD : '#15161a', border: i === 20 ? '2px solid #ffd24d' : '1px solid #24262c' }, String(i + 1));
   return frame(
     brand(),
     h('div', { display: 'flex', flexDirection: 'column', marginTop: 70, width: 600 },
@@ -51,6 +51,12 @@ function homeCard() {
       h('div', { display: 'flex', justifyContent: 'space-between', fontSize: 20, color: '#a9a69c', marginBottom: 16 }, h('span', {}, 'Calendar'), h('span', { color: '#ffd24d' }, 'Add to calendar')),
       h('div', { display: 'flex', gap: 6, marginBottom: 8 }, ...days.map((d) => h('div', { width: 40, display: 'flex', justifyContent: 'center', fontSize: 15, color: '#7c7a73' }, d))),
       h('div', { display: 'flex', flexWrap: 'wrap', gap: 6 }, ...Array.from({ length: 28 }, (_, i) => cell(i)))),
+    // The hero animation's finished state: an example Space dropped on a date, and a reminder chip.
+    h('div', { position: 'absolute', right: 60, top: 418, width: 430, padding: '18px 22px', borderRadius: 20, background: '#14120c', border: '1px solid rgba(255,210,77,.4)', display: 'flex', flexDirection: 'column', transform: 'rotate(-2deg)', boxShadow: '0 20px 50px rgba(245,184,0,.25)' },
+      h('div', { display: 'flex', justifyContent: 'space-between', fontSize: 15, letterSpacing: 2, color: '#f5b800' }, h('span', {}, 'SPACE · EXAMPLE'), h('span', { color: '#8a877f' }, 'in a bChatX room')),
+      h('div', { fontSize: 28, fontWeight: 700, marginTop: 10, letterSpacing: -0.6 }, 'Evening listening party'),
+      h('div', { display: 'flex', alignItems: 'center', marginTop: 10, fontSize: 19, color: '#ffd24d', fontWeight: 600 }, h('div', { width: 12, height: 12, borderRadius: 6, background: '#ff5a4f', marginRight: 10 }), 'LIVE at 19:00')),
+    h('div', { position: 'absolute', right: 66, top: 104, padding: '10px 16px', borderRadius: 999, backgroundImage: GOLD, color: '#000', fontSize: 18, fontWeight: 700, display: 'flex' }, 'Reminder · 18:45'),
   );
 }
 

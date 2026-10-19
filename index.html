@@ -65,10 +65,18 @@
       </div>
       <p class="hint">Works with Apple Calendar, Google Calendar and Outlook.</p>
     </div>
-    <div class="month" aria-hidden="true">
-      <div class="month-h"><b id="m-name">&nbsp;</b><span>Your time zone</span></div>
-      <div class="days" id="m-days"></div>
-      <p class="month-f" id="m-foot">&nbsp;</p>
+    <div class="stage" role="img" aria-label="This month’s calendar of Spaces. An example Space drops onto a date, live at 19:00, with a reminder set.">
+      <div class="month">
+        <div class="month-h"><b id="m-name">&nbsp;</b><span>Your time zone</span></div>
+        <div class="days" id="m-days"></div>
+        <p class="month-f" id="m-foot">&nbsp;</p>
+      </div>
+      <div class="drop" aria-hidden="true">
+        <div class="drop-h"><span>SPACE · <i id="d-day">&nbsp;</i></span><span class="ex">Example</span></div>
+        <div class="drop-t">Evening listening party</div>
+        <div class="drop-f"><span class="onair"><b>●</b> LIVE at 19:00</span><span class="drop-r">in a bChatX room</span></div>
+      </div>
+      <span class="remind" aria-hidden="true">&#128276; Reminder · 18:45</span>
     </div>
   </div>
 
@@ -139,10 +147,14 @@
     document.getElementById('m-name').textContent=now.toLocaleDateString(undefined,{month:'long',year:'numeric'});
     var first=(new Date(y,m,1).getDay()+6)%7,len=new Date(y,m+1,0).getDate(),has={};
     items.forEach(function(e){var d=new Date(e.startsAt);if(d.getFullYear()===y&&d.getMonth()===m)has[d.getDate()]=1});
-    var h='';['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="wd">'+w+'</span>'});
+    var box=document.getElementById('m-days');
+    if(box.childElementCount){[].forEach.call(box.querySelectorAll('[data-d]'),function(el){el.classList.toggle('has',!!has[+el.dataset.d])})}else{
+    var pick=now.getDate()+3>len?now.getDate():now.getDate()+3,pd=new Date(y,m,pick);
+    document.getElementById('d-day').textContent=pd.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'}).toUpperCase();
+    var h='',k=0;['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="wd">'+w+'</span>'});
     for(var i=0;i<first;i++)h+='<span class="blank"></span>';
-    for(var d=1;d<=len;d++)h+='<span class="'+(d===now.getDate()?'today ':'')+(has[d]?'has':'')+'">'+d+'</span>';
-    document.getElementById('m-days').innerHTML=h;
+    for(var d=1;d<=len;d++)h+='<span data-d="'+d+'" style="--i:'+(k++)+'" class="'+(d===now.getDate()?'today ':'')+(d===pick?'pick ':'')+(has[d]?'has':'')+'">'+d+'</span>';
+    box.innerHTML=h;}
     var n=Object.keys(has).length;
     document.getElementById('m-foot').textContent=n?'Gold outline: a day with a Space.':'Nothing scheduled this month yet.';
   }
@@ -172,6 +184,13 @@
     try{navigator.clipboard.writeText('https://bcalx.com/calendar.ics').then(function(){c.textContent='Copied';setTimeout(function(){c.textContent='Copy link'},1600)})}catch(_){}
   });
 })();
+</script>
+<script>
+(function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var st=document.querySelector('.stage');if(!st)return;st.classList.add('wait');
+function go(){st.classList.remove('wait')}
+if(!('IntersectionObserver' in window))return go();
+var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();go()}},{threshold:.4});io.observe(st)})();
 </script>
 </body>
 </html>
