@@ -1,13 +1,54 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/calendar.ics", "destination": "/api/ics" },
-    { "source": "/e/:id.ics", "destination": "/api/ics?id=:id" },
-    { "source": "/room/:room.ics", "destination": "/api/ics?room=:room" },
-    { "source": "/e/:id", "destination": "/api/event?id=:id" }
+    {
+      "source": "/calendar.ics",
+      "destination": "/api/ics"
+    },
+    {
+      "source": "/e/:id.ics",
+      "destination": "/api/ics?id=:id"
+    },
+    {
+      "source": "/room/:room.ics",
+      "destination": "/api/ics?room=:room"
+    },
+    {
+      "source": "/e/:id",
+      "destination": "/api/event?id=:id"
+    },
+    {
+      "source": "/u/:name",
+      "destination": "/studio"
+    }
   ],
   "headers": [
-    { "source": "/calendar.ics", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] },
-    { "source": "/room/(.*)", "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }] }
+    {
+      "source": "/calendar.ics",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/room/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/(studio|u/:name)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
   ]
 }

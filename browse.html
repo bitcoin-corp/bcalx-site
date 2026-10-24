@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Browse · bCalX</title>
+<meta name="description" content="Public records people chose to share on bCalX.">
+<link rel="canonical" href="https://bcalx.com/browse">
+<meta property="og:type" content="website"><meta property="og:url" content="https://bcalx.com/browse"><meta property="og:site_name" content="bCalX">
+<meta property="og:title" content="Browse · bCalX"><meta property="og:description" content="Public records people chose to share on bCalX.">
+<meta property="og:image" content="https://bcalx.com/api/og"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bcalx.com/api/og">
+<meta name="theme-color" content="#000000"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/c/site.css"><link rel="stylesheet" href="/c/studio.css">
+<style>.doc{max-width:720px;padding:40px 16px 20px}.doc h2{margin-top:34px;font-size:24px}.doc p,.doc li{color:#cfcabd}.doc ul{padding-left:20px}.doc a{color:var(--gold)}</style>
+</head>
+<body>
+<header class="wrap nav"><a class="brand" href="/"><img src="/logo.svg" alt="" width="30" height="30"><span data-site="brand">bCal<span class="gold">X</span></span></a><nav class="nav-links"><a class="hide-s" href="/">Home</a><a href="/browse">Browse</a><span data-bwx></span></nav></header>
+<main class="wrap"><section style="padding-top:30px">
+  <p class="kicker">Browse</p><h1>Public records</h1>
+  <p class="mute">Only records their owners made public. Private records are locked and never listed.</p>
+  <div id="list" class="grid" style="margin-top:18px"><p class="mute">Loading…</p></div>
+</section></main>
+<footer data-footer></footer>
+<script src="https://unpkg.com/@bwalletx/connect@0.5.0/dist/bwalletx-connect.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="/bwx.js"></script>
+<script type="module" src="/site.js"></script>
+<script type="module">
+import { esc } from '/mint/core.js';
+const j = await fetch('/api/browse').then((r) => r.json()).catch(() => null);
+const el = document.getElementById('list');
+el.innerHTML = !j?.live ? '<p class="mute">Browse opens once public records are indexed. <span class="badge coming">Coming</span></p>'
+  : !j.items.length ? '<p class="mute">Nothing public yet.</p>'
+  : j.items.map((x) => `<article class="it" style="padding-left:12px"><span class="k">${esc(x.record.data?.start?.iso || '')}</span><span class="t">${esc(x.record.data?.title || x.record.id)}</span>${x.record.data?.location ? `<span class="d">${esc(x.record.data.location)}</span>` : ''}</article>`).join('');
+</script>
+</body>
+</html>

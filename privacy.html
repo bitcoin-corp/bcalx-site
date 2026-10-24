@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · bCalX</title>
+<meta name="description" content="What bCalX reads, what it keeps, and how to delete it. In plain English.">
+<link rel="canonical" href="https://bcalx.com/privacy">
+<meta property="og:type" content="website"><meta property="og:url" content="https://bcalx.com/privacy"><meta property="og:site_name" content="bCalX">
+<meta property="og:title" content="Privacy · bCalX"><meta property="og:description" content="What bCalX reads, what it keeps, and how to delete it. In plain English.">
+<meta property="og:image" content="https://bcalx.com/api/og"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bcalx.com/api/og">
+<meta name="theme-color" content="#000000"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/c/site.css"><link rel="stylesheet" href="/c/studio.css">
+<style>.doc{max-width:720px;padding:40px 16px 20px}.doc h2{margin-top:34px;font-size:24px}.doc p,.doc li{color:#cfcabd}.doc ul{padding-left:20px}.doc a{color:var(--gold)}</style>
+</head>
+<body>
+<header class="wrap nav"><a class="brand" href="/"><img src="/logo.svg" alt="" width="30" height="30"><span data-site="brand">bCal<span class="gold">X</span></span></a><nav class="nav-links"><a class="hide-s" href="/">Home</a><a href="/browse">Browse</a><span data-bwx></span></nav></header>
+<main class="wrap doc">
+  <p class="kicker">Privacy</p><h1>Privacy, in plain English.</h1>
+  <p class="mute">Last updated <!-- EDIT: date -->24 October 2026.</p>
+  <p><span data-site="name">bCalX</span> (<span data-site="host">bcalx.com</span>) is run by THE BITCOIN CORPORATION LTD, a company registered in England and Wales, company number 16735102 ("we"). This page says what we read, what we keep and how to remove it.</p>
+  <h2>What we read</h2>
+  <ul id="reads"><!-- filled from site.config.js privacy.reads --></ul>
+  <h2>What we keep</h2>
+  <ul>
+    <li>Nothing from your file. It is read inside your browser and kept on your device until you clear it.</li>
+    <li>A short-lived cookie that keeps your wallet connected. No advertising or tracking cookies.</li>
+  </ul>
+  <h2>What we never do</h2>
+  <ul id="never"><li>We never sell your data or share it with advertisers.</li></ul>
+  <h2>Your records on Bitcoin</h2>
+  <p>If you choose to mint, each record is written to the Bitcoin SV blockchain, encrypted with your own wallet keys so only your wallet can open it. You can make any one public later, which puts it on chain in clear, signed by you. Anything written to a blockchain is permanent and can't be deleted by us or anyone else, so only mint what you want to keep.</p>
+  <h2>Who else is involved</h2>
+  <ul><li><b>bWalletX</b>, our own wallet, which holds your keys on your device.</li><li><b>Vercel</b>, which hosts this website.</li><!-- EDIT: add the data source (e.g. Google) if you call its API --></ul>
+  <h2>How to delete</h2>
+  <ul><li>Imported items live in this browser: clear the site's data in your browser settings to remove them.</li><li>Questions: <a data-site="email" href="mailto:support@bwalletx.com">support@bwalletx.com</a>, or ask in Ask b inside bWalletX.</li></ul>
+  <h2>Your rights</h2>
+  <p>Under UK data protection law you can ask to see, correct or delete the personal data we hold about you, and complain to the Information Commissioner's Office (ico.org.uk). Contact us first.</p>
+</main>
+<footer data-footer></footer>
+<script src="https://unpkg.com/@bwalletx/connect@0.5.0/dist/bwalletx-connect.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="/bwx.js"></script>
+<script type="module" src="/site.js"></script>
+<script type="module">
+import SITE from '/site.config.js';
+document.getElementById('reads').innerHTML = SITE.privacy.reads.map((x) => `<li>${x}</li>`).join('');
+document.getElementById('never').insertAdjacentHTML('afterbegin', SITE.privacy.never.map((x) => `<li>${x}</li>`).join(''));
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your studio · bCalX</title>
+<meta name="description" content="Your bCalX studio: import your calendar, keep each event as a private record in your bWalletX, make any one public.">
+<meta name="robots" content="noindex,follow">
+<meta property="og:type" content="website"><meta property="og:site_name" content="bCalX">
+<meta property="og:title" content="Your studio · bCalX"><meta property="og:description" content="Import your calendar. Own it in your wallet.">
+<meta property="og:image" content="https://bcalx.com/api/og"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://bcalx.com/api/og">
+<meta name="theme-color" content="#000000"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/c/site.css">
+<link rel="stylesheet" href="/c/studio.css">
+</head>
+<body>
+<header class="wrap nav">
+  <a class="brand" href="/" aria-label="Home"><img src="/logo.svg" alt="" width="30" height="30"><span data-site="brand">bCal<span class="gold">X</span></span></a>
+  <nav class="nav-links" aria-label="Main"><a class="hide-s" href="/">Home</a><a href="/browse">Browse</a><span data-bwx></span></nav>
+</header>
+<main class="wrap">
+  <p class="testbar" id="testbar" hidden>Preview. Connecting your wallet only works on the live site.</p>
+
+  <section id="gate" class="center" hidden>
+    <p class="kicker">Your studio</p>
+    <h1>Connect your wallet to open your studio.</h1>
+    <p class="lede">Your studio carries your bWalletX name. Then import your data and mint it, locked to you.</p>
+    <span data-bwx></span>
+    <ol class="steps3" aria-label="Three steps">
+      <li><span class="n">1</span><div><b>Connect bWalletX</b><span class="s">Opens your studio</span></div></li>
+      <li><span class="n">2</span><div><b id="g2">Import</b><span class="s">Read on your device</span></div></li>
+      <li><span class="n">3</span><div><b>Mint</b><span class="s">One, or the lot</span></div></li>
+    </ol>
+    <p class="hint" style="margin-top:18px">No wallet yet? <a class="gold" href="https://bwalletx.com/get">Get bWalletX</a>. It’s free.</p>
+  </section>
+
+  <section id="nf" class="center" hidden>
+    <p class="kicker">Studio</p>
+    <h1 id="nfTitle">No studio here yet.</h1>
+    <p class="lede">If it’s yours, connect your wallet and open your studio.</p>
+    <a class="btn btn-gold" href="/studio">Open my studio</a>
+  </section>
+
+  <section id="loading" class="center"><p class="mute">Opening the studio…</p></section>
+
+  <section id="studio" hidden>
+    <div class="me">
+      <div class="av" id="av" role="img" aria-label=""></div>
+      <div style="min-width:0">
+        <p class="kicker" id="kick">Studio</p>
+        <h1 id="name"></h1>
+        <p class="handle" id="handle"></p>
+        <p class="mail" id="mail"></p>
+        <div class="link" id="linkRow" hidden><code id="pubLink"></code><button class="chip" type="button" id="copyLink">Copy link</button></div>
+      </div>
+    </div>
+
+    <div class="row2" id="ownerLinks" hidden>
+      <button class="btn btn-gold" type="button" data-open="import" id="importBtn">Import</button>
+      <button class="chip" type="button" data-open="status">What works today</button>
+      <span data-bwx="signout"></span>
+    </div>
+    <div class="row2" id="pubLinks" hidden><button class="chip" type="button" data-open="status">What works today</button></div>
+
+    <!-- Library: on the page, not in a modal. Mint bar pinned at the bottom. -->
+    <section class="library" id="library" aria-labelledby="lH" hidden>
+      <h2 id="lH">Your library <span class="badge live">Live</span></h2>
+      <p id="lLede"></p>
+      <div class="grid" id="grid"></div>
+      <div class="tools" id="tools" hidden>
+        <button class="btn btn-ghost" type="button" id="selAll">Select all</button>
+        <button class="btn btn-gold" type="button" id="mintSel" disabled>Mint</button>
+        <button class="btn btn-ghost" type="button" id="drySel">Dry run</button>
+        <span class="q" id="quote" aria-live="polite"></span>
+        <p class="msg" id="mintMsg" aria-live="polite"></p>
+      </div>
+      <details id="caveats"><summary>What minting does</summary><ul class="small-list">
+        <li>Each record is locked with your wallet’s keys. Only you can open it. You can make any one public later.</li>
+        <li>The price shows before you mint. Your wallet asks once per transaction before anything is paid.</li>
+        <li>Your file was read on this device. It was never uploaded.</li>
+      </ul></details>
+    </section>
+
+    <section class="panel" id="recs" hidden>
+      <h2>Your records</h2>
+      <p>Records you minted, opened on this device with your keys.</p>
+      <button class="btn btn-ghost" type="button" id="openRecs">Open my records</button>
+      <div id="recList" style="margin-top:12px"></div>
+    </section>
+
+    <section class="panel" id="pub" hidden>
+      <h2>Public</h2>
+      <div id="pubList"></div>
+    </section>
+
+    <dialog class="modal" id="import" aria-labelledby="iH"><button class="x" type="button" data-close aria-label="Close">×</button><div class="mb">
+      <h2 id="iH">Import</h2>
+      <p class="hint">Your file is read <b>on this device</b>. It never goes to our server.</p>
+      <label class="drop" id="drop"><input type="file" id="file" multiple hidden><span><b>Choose a file</b> or drop it here</span><small id="acceptList"></small></label>
+      <p class="msg" id="impMsg" aria-live="polite"></p>
+      <div id="howto"></div>
+    </div></dialog>
+
+    <dialog class="modal" id="status" aria-labelledby="sH"><button class="x" type="button" data-close aria-label="Close">×</button><div class="mb">
+      <h2 id="sH">What works today</h2>
+      <ul class="check" id="checklist"></ul>
+    </div></dialog>
+  </section>
+</main>
+<footer data-footer></footer>
+<script src="https://unpkg.com/@bwalletx/connect@0.5.0/dist/bwalletx-connect.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="/bwx.js"></script>
+<script type="module" src="/site.js"></script>
+<script type="module" src="/studio.js"></script>
+</body>
+</html>
